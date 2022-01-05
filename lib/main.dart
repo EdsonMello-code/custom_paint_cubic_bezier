@@ -38,7 +38,7 @@ class _MyHomePageState extends State<MyHomePage> {
         width: MediaQuery.of(context).size.width,
         height: MediaQuery.of(context).size.height - 300,
         child: Transform.rotate(
-          angle: pi,
+          angle: 0,
           child: Padding(
             padding: const EdgeInsets.only(top: 200.0),
             child: CustomPaint(
@@ -60,7 +60,19 @@ class CustomBezierPainter extends CustomPainter {
       ..style = PaintingStyle.fill
       ..color = Colors.red;
 
-    path.quadraticBezierTo(0, -100, size.width, 10);
+    // controller point
+
+    const controllerPoint = Offset(50, 300);
+
+    //end point
+    final endPoint = Offset(size.width - 20, 0);
+    path.quadraticBezierTo(
+      controllerPoint.dx,
+      controllerPoint.dy,
+      endPoint.dx,
+      endPoint.dy,
+    );
+
     path.lineTo(size.width, 0);
     path.lineTo(size.width, size.height);
     path.lineTo(0, size.height);
@@ -75,5 +87,4 @@ class CustomBezierPainter extends CustomPainter {
 }
 
 
-// quadratic cubic bezier: in method the points p0 and p3 are already fixed by default
-//quadratic cubic bezier: i have add points p1 and p2 which are the controller point by me
+// quadratic cubic bezier: this method has three points, the first is added by default is 0 and size.height, (x1, y1) is controller point and (x2, y2) is end point.
